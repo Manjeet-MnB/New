@@ -1,9 +1,15 @@
 from Insurance.logger import logging
 from Insurance.exception import InsuranceException
-import sys, os
 from Insurance.utils import get_collection_as_dataframe
+import sys, os
 from Insurance.entity.config_entity import DataIngestionConfig
 from Insurance.entity import config_entity
+from Insurance.components.data_ingestion import DataIngestion
+'''from Insurance.components.data_validation import DataValidation
+from Insurance.components.data_transformation import DataTransformation
+from Insurance.components.model_trainer import ModelTrainer
+from Insurance.components.model_evaluation import ModelEvaluation
+from Insurance.components.model_pusher import ModelPusher'''
 
 '''def test_logger_and_expection():
     try:
@@ -20,7 +26,8 @@ if __name__ == "__main__":
     try:
         traning_pipeline_config = config_entity.TrainingPipelineConfig()
         data_ingestion_conig = config_entity.DataIngestionConfig(traning_pipeline_config = traning_pipeline_config)
-        print(data_ingestion_conig.to_dict())
-        #get_collection_as_dataframe(database_name = "INSURANCE",collection_name = "INSURANCE_PROJECT")
+        print(data_ingestion_conig.to_dict())      
+        data_ingestion = DataIngestion(data_ingestion_config=data_ingestion_conig)
+        data_ingestion_artifact = data_ingestion.initiate_data_ingestion() 
     except Exception as e:
         print(e)    
